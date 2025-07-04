@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<title>Dashboard KPIs Logísticos</title>
+<style>
+  body {
+    margin: 0; font-family: 'Segoe UI', sans-serif;
+   background: linear-gradient(135deg, #02bfe4, #0288a7);
+    color: #222;
+  }
+  .container {
+    max-width: 1200px; margin: auto; padding: 20px;
+  }
+  .header {
+    background: white; border-radius: 20px; padding: 25px; margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  }
+  .header h1 {
+    color: #4b47a3; margin: 0; font-size: 30px;
+  }
+  .kpis {
+    display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-around;
+  }
+  .kpi-card {
+    background: white; border-radius: 15px; padding: 20px;
+    flex: 1 1 180px; max-width: 220px; box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    text-align: center;
+  }
+  .kpi-card h2 {
+    font-size: 18px; margin-bottom: 10px; color: #555;
+  }
+  .kpi-card .valor {
+    font-size: 36px; font-weight: 700; color: #4b47a3;
+  }
+  .pedidos, .graficos {
+    background: white; border-radius: 20px; padding: 25px; margin-top: 35px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.15);
+  }
+  table {
+    width: 100%; border-collapse: collapse; font-size: 15px;
+  }
+  th, td {
+    padding: 14px 10px; border-bottom: 1px solid #ccc;
+    text-align: center;
+  }
+  th {
+    background: #4b47a3; color: white; font-weight: 600;
+  }
+  canvas {
+    max-width: 100%; height: 320px;
+  }
+  #graficoDrilldown {
+    margin-top: 25px;
+  }
+  #voltarBtn {
+    margin-top: 10px;
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: #4b47a3;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    display: none;
+  }
+  #voltarBtn:hover {
+    background-color: #3a3e70;
+  }
+  @media(max-width: 768px) {
+    .kpis {
+      flex-direction: column; align-items: center;
+    }
+    .kpi-card {
+      max-width: 90vw;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>📦 Dashboard KPIs Logísticos</h1>
+    </div>
+
+    <div class="kpis">
+      <div class="kpi-card">
+        <h2>Tempo Médio de Envio</h2>
+        <div class="valor">1,9 dias</div>
+      </div>
+      <div class="kpi-card">
+        <h2>Total de Pedidos</h2>
+        <div class="valor">231</div>
+      </div>
+      <div class="kpi-card">
+        <h2>Pedidos com Problema</h2>
+        <div class="valor">8</div>
+      </div>
+      <div class="kpi-card">
+        <h2>Entregas no Prazo (%)</h2>
+        <div class="valor">88%</div>
+      </div>
+      <div class="kpi-card">
+        <h2>Taxa de Reenvios (%)</h2>
+        <div class="valor">18,7%</div>
+      </div>
+    </div>
+
+    <div class="pedidos">
+      <h2>📋 Últimos Pedidos Postados</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Nome</th>
+            <th>Data de Envio</th>
+            <th>Prazo para Envio</th>
+            <th>No Prazo?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>02/07/2025</td><td>Eliana Debroi dos Santos</td><td>04/07/2025</td><td>1,93</td><td>Sim</td></tr>
+          <tr><td>02/07/2025</td><td>Sandra Paschoal</td><td>04/07/2025</td><td>1,90</td><td>Sim</td></tr>
+          <tr><td>02/07/2025</td><td>Ivani Terezinha da Cruz</td><td>04/07/2025</td><td>1,89</td><td>Sim</td></tr>
+          <tr><td>02/07/2025</td><td>Ruy de Souza filho</td><td>04/07/2025</td><td>1,82</td><td>Sim</td></tr>
+          <tr><td>02/07/2025</td><td>Aparecida Machado</td><td>04/07/2025</td><td>1,74</td><td>Sim</td></tr>
+          <tr><td>02/07/2025</td><td>Rosimeri Decezaro</td><td>04/07/2025</td><td>1,67</td><td>Sim</td></tr>
+          <tr><td>02/07/2025</td><td>Marilia De Dirceu Moresco</td><td>04/07/2025</td><td>1,60</td><td>Sim</td></tr>
+          <tr><td>02/07/2025</td><td>Regina Fragozo</td><td>04/07/2025</td><td>1,60</td><td>Sim</td></tr>
+          <tr><td>02/07/2025</td><td>JoseGetulio Martins</td><td>04/07/2025</td><td>2,03</td><td>Sim</td></tr>
+          <tr><td>02/07/2025</td><td>Tania Cristina Zanolini Parussulo</td><td>04/07/2025</td><td>2,01</td><td>Sim</td></tr>
+          <tr><td>02/07/2025</td><td>Vanda Maria Barbieri Freitas</td><td>04/07/2025</td><td>1,99</td><td>Sim</td></tr>
+          <tr><td>02/07/2025</td><td>Giuseppe Di Marco</td><td>03/07/2025</td><td>1,00</td><td>Sim</td></tr>
+          <tr><td>02/07/2025</td><td>Bernardete de lourdes Silva</td><td>04/07/2025</td><td>2,07</td><td>Sim</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="graficos">
+      <h2>📈 Volume de Pedidos por Data</h2>
+      <canvas id="graficoPedidos"></canvas>
+    </div>
+
+    <div class="graficos">
+      <h2>📉 Pedidos Travados na Alfândega (%)</h2>
+      <canvas id="graficoProblemas"></canvas>
+    </div>
+
+    <div class="graficos">
+      <h2>⏱ Tempo Médio por Região</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Região</th>
+            <th>Média Dias Corridos</th>
+            <th>Média Dias Úteis</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Norte</td><td>29,29</td><td>20,67</td></tr>
+          <tr><td>Nordeste</td><td>19,73</td><td>14,02</td></tr>
+          <tr><td>Centro-Oeste</td><td>17,92</td><td>12,54</td></tr>
+          <tr><td>Sudeste</td><td>13,67</td><td>9,72</td></tr>
+          <tr><td>Sul</td><td>15,58</td><td>11,30</td></tr>
+        </tbody>
+      </table>
+
+      <!-- Gráfico drilldown com média dias úteis -->
+      <canvas id="graficoDrilldown"></canvas>
+      <button id="voltarBtn">⬅ Voltar para Regiões</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Gráfico Volume de Pedidos por Data
+    const ctxPedidos = document.getElementById('graficoPedidos').getContext('2d');
+    new Chart(ctxPedidos, {
+      type: 'bar',
+      data: {
+        labels: ['24/06', '25/06', '26/06', '27/06', '28/06', '29/06', '30/06', '01/07', '02/07', '03/07'],
+        datasets: [{
+          label: 'Pedidos',
+          data: [16, 16, 35, 22, 21, 14, 32, 21, 18, 35],
+          backgroundColor: 'rgba(75, 123, 236, 0.7)',
+          borderColor: 'rgba(75, 123, 236, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: { responsive: true, scales: { y: { beginAtZero: true } } }
+    });
+
+    // Gráfico Pedidos Travados na Alfândega (%)
+    const ctxProblemas = document.getElementById('graficoProblemas').getContext('2d');
+    new Chart(ctxProblemas, {
+      type: 'line',
+      data: {
+        labels: ['24/06', '25/06', '26/06', '27/06', '28/06', '29/06', '30/06', '01/07', '02/07', '03/07'],
+        datasets: [{
+          label: '% Alfândega',
+          data: [0, 0, 0, 4.55, 0, 14.29, 0, 14.29, 0, 22.86],
+          fill: false,
+          borderColor: 'rgba(220,20,60, 0.8)',
+          tension: 0.25
+        }]
+      },
+      options: { responsive: true, scales: { y: { beginAtZero: true, max: 25 } } }
+    });
+
+    // Gráfico Drilldown Média Dias Úteis por Região e Estados
+    const ctxDrilldown = document.getElementById('graficoDrilldown').getContext('2d');
+    let graficoAtual;
+
+    // Dados regiões (média dias úteis)
+    const dadosRegioes = {
+      labels: ["Norte", "Nordeste", "Centro-Oeste", "Sudeste", "Sul"],
+      data: [20.67, 14.02, 12.54, 9.72, 11.3]
+    };
+
+    // Dados estados por região (média dias úteis)
+    const dadosPorEstado = {
+      "Norte": {
+        labels: ["Acre", "Amapá", "Amazonas", "Pará", "Rondônia", "Roraima", "Tocantins"],
+        data: [16, 16, 19.67, 22.93, 15, 0, 0]
+      },
+      "Nordeste": {
+        labels: ["Alagoas", "Bahia", "Ceará", "Maranhão", "Paraíba", "Pernambuco", "Piauí", "Rio Grande do Norte", "Sergipe"],
+        data: [14.5, 14, 15.55, 14.8, 16, 11.71, 15.67, 13, 0]
+      },
+      "Centro-Oeste": {
+        labels: ["Distrito Federal", "Goiás", "Mato Grosso", "Mato Grosso do Sul"],
+        data: [9, 16, 15.5, 14.2]
+      },
+      "Sudeste": {
+        labels: ["Espírito Santo", "Minas Gerais", "Rio de Janeiro", "São Paulo"],
+        data: [12.38, 10.72, 9.78, 9.52]
+      },
+      "Sul": {
+        labels: ["Paraná", "Rio Grande do Sul", "Santa Catarina"],
+        data: [10.8, 11.51, 11.78]
+      }
+    };
+
+    function criaGraficoRegioes() {
+      if (graficoAtual) graficoAtual.destroy();
+
+      graficoAtual = new Chart(ctxDrilldown, {
+        type: 'bar',
+        data: {
+          labels: dadosRegioes.labels,
+          datasets: [{
+            label: 'Média Dias Úteis',
+            data: dadosRegioes.data,
+            backgroundColor: 'rgba(75, 123, 236, 0.7)',
+            borderColor: 'rgba(75, 123, 236, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          onClick: (evt, itens) => {
+            if (itens.length) {
+              const index = itens[0].index;
+              const regiao = dadosRegioes.labels[index];
+              mostraEstados(regiao);
+            }
+          },
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: { display: true, text: 'Dias Úteis' }
+            },
+            x: {
+              title: { display: true, text: 'Região' }
+            }
+          },
+          plugins: {
+            legend: { display: true },
+            tooltip: { enabled: true }
+          }
+        }
+      });
+
+      voltarBtn.style.display = "none";
+    }
+
+    function mostraEstados(regiao) {
+      if (graficoAtual) graficoAtual.destroy();
+
+      graficoAtual = new Chart(ctxDrilldown, {
+        type: 'bar',
+        data: {
+          labels: dadosPorEstado[regiao].labels,
+          datasets: [{
+            label: `Média Dias Úteis - ${regiao}`,
+            data: dadosPorEstado[regiao].data,
+            backgroundColor: 'rgba(220, 20, 60, 0.7)',
+            borderColor: 'rgba(220, 20, 60, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: { display: true, text: 'Dias Úteis' }
+            },
+            x: {
+              title: { display: true, text: 'Estado' }
+            }
+          },
+          plugins: {
+            legend: { display: true },
+            tooltip: { enabled: true }
+          }
+        }
+      });
+
+      voltarBtn.style.display = "inline-block";
+    }
+
+    const voltarBtn = document.getElementById('voltarBtn');
+    voltarBtn.addEventListener('click', criaGraficoRegioes);
+
+    // Inicializa com o gráfico geral
+    criaGraficoRegioes();
+
+  </script>
+</body>
+</html>
