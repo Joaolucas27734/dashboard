@@ -6,7 +6,7 @@
 <style>
   body {
     margin: 0; font-family: 'Segoe UI', sans-serif;
-   background: linear-gradient(135deg, #02bfe4, #0288a7);
+    background: linear-gradient(135deg, #02bfe4, #0288a7);
     color: #222;
   }
   .container {
@@ -15,9 +15,21 @@
   .header {
     background: white; border-radius: 20px; padding: 25px; margin-bottom: 25px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
   .header h1 {
     color: #4b47a3; margin: 0; font-size: 30px;
+  }
+  select#semanaSelect {
+    font-size: 16px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid #4b47a3;
+    background: white;
+    color: #4b47a3;
+    cursor: pointer;
   }
   .kpis {
     display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-around;
@@ -81,34 +93,38 @@
   <div class="container">
     <div class="header">
       <h1>📦 Dashboard KPIs Logísticos</h1>
+      <select id="semanaSelect" title="Selecione a semana">
+        <option value="1">Semana 1</option>
+        <option value="2" selected>Semana 2</option>
+      </select>
     </div>
 
     <div class="kpis">
       <div class="kpi-card">
         <h2>Tempo Médio de Envio</h2>
-        <div class="valor">1,9 dias</div>
+        <div class="valor" id="tempoEnvio">-</div>
       </div>
       <div class="kpi-card">
         <h2>Total de Pedidos</h2>
-        <div class="valor">231</div>
+        <div class="valor" id="totalPedidos">-</div>
       </div>
       <div class="kpi-card">
         <h2>Pedidos com Problema</h2>
-        <div class="valor">8</div>
+        <div class="valor" id="pedidosProblema">-</div>
       </div>
       <div class="kpi-card">
         <h2>Entregas no Prazo (%)</h2>
-        <div class="valor">88%</div>
+        <div class="valor" id="entregasPrazo">-</div>
       </div>
       <div class="kpi-card">
         <h2>Taxa de Reenvios (%)</h2>
-        <div class="valor">18,7%</div>
+        <div class="valor" id="taxaReenvios">-</div>
       </div>
     </div>
 
     <div class="pedidos">
       <h2>📋 Últimos Pedidos Postados</h2>
-      <table>
+      <table id="tabelaPedidos">
         <thead>
           <tr>
             <th>Data</th>
@@ -119,19 +135,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr><td>02/07/2025</td><td>Eliana Debroi dos Santos</td><td>04/07/2025</td><td>1,93</td><td>Sim</td></tr>
-          <tr><td>02/07/2025</td><td>Sandra Paschoal</td><td>04/07/2025</td><td>1,90</td><td>Sim</td></tr>
-          <tr><td>02/07/2025</td><td>Ivani Terezinha da Cruz</td><td>04/07/2025</td><td>1,89</td><td>Sim</td></tr>
-          <tr><td>02/07/2025</td><td>Ruy de Souza filho</td><td>04/07/2025</td><td>1,82</td><td>Sim</td></tr>
-          <tr><td>02/07/2025</td><td>Aparecida Machado</td><td>04/07/2025</td><td>1,74</td><td>Sim</td></tr>
-          <tr><td>02/07/2025</td><td>Rosimeri Decezaro</td><td>04/07/2025</td><td>1,67</td><td>Sim</td></tr>
-          <tr><td>02/07/2025</td><td>Marilia De Dirceu Moresco</td><td>04/07/2025</td><td>1,60</td><td>Sim</td></tr>
-          <tr><td>02/07/2025</td><td>Regina Fragozo</td><td>04/07/2025</td><td>1,60</td><td>Sim</td></tr>
-          <tr><td>02/07/2025</td><td>JoseGetulio Martins</td><td>04/07/2025</td><td>2,03</td><td>Sim</td></tr>
-          <tr><td>02/07/2025</td><td>Tania Cristina Zanolini Parussulo</td><td>04/07/2025</td><td>2,01</td><td>Sim</td></tr>
-          <tr><td>02/07/2025</td><td>Vanda Maria Barbieri Freitas</td><td>04/07/2025</td><td>1,99</td><td>Sim</td></tr>
-          <tr><td>02/07/2025</td><td>Giuseppe Di Marco</td><td>03/07/2025</td><td>1,00</td><td>Sim</td></tr>
-          <tr><td>02/07/2025</td><td>Bernardete de lourdes Silva</td><td>04/07/2025</td><td>2,07</td><td>Sim</td></tr>
+          <!-- Dados carregados via JS -->
         </tbody>
       </table>
     </div>
@@ -148,7 +152,7 @@
 
     <div class="graficos">
       <h2>⏱ Tempo Médio por Região</h2>
-      <table>
+      <table id="tabelaRegiao">
         <thead>
           <tr>
             <th>Região</th>
@@ -157,15 +161,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr><td>Norte</td><td>29,29</td><td>20,67</td></tr>
-          <tr><td>Nordeste</td><td>19,73</td><td>14,02</td></tr>
-          <tr><td>Centro-Oeste</td><td>17,92</td><td>12,54</td></tr>
-          <tr><td>Sudeste</td><td>13,67</td><td>9,72</td></tr>
-          <tr><td>Sul</td><td>15,58</td><td>11,30</td></tr>
+          <!-- Dados carregados via JS -->
         </tbody>
       </table>
 
-      <!-- Gráfico drilldown com média dias úteis -->
       <canvas id="graficoDrilldown"></canvas>
       <button id="voltarBtn">⬅ Voltar para Regiões</button>
     </div>
@@ -173,159 +172,349 @@
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    // Gráfico Volume de Pedidos por Data
-    const ctxPedidos = document.getElementById('graficoPedidos').getContext('2d');
-    new Chart(ctxPedidos, {
-      type: 'bar',
-      data: {
-        labels: ['24/06', '25/06', '26/06', '27/06', '28/06', '29/06', '30/06', '01/07', '02/07', '03/07'],
-        datasets: [{
-          label: 'Pedidos',
-          data: [16, 16, 35, 22, 21, 14, 32, 21, 18, 35],
-          backgroundColor: 'rgba(75, 123, 236, 0.7)',
-          borderColor: 'rgba(75, 123, 236, 1)',
-          borderWidth: 1
-        }]
+    const dadosSemanas = {
+      1: {
+        tempoEnvio: "1,9 dias",
+        totalPedidos: 231,
+        pedidosProblema: 8,
+        entregasPrazo: "88%",
+        taxaReenvios: "18,7%",
+        pedidos: [
+          ["02/07/2025", "Eliana Debroi dos Santos", "04/07/2025", "1,93", "Sim"],
+          ["02/07/2025", "Sandra Paschoal", "04/07/2025", "1,90", "Sim"],
+          ["02/07/2025", "Ivani Terezinha da Cruz", "04/07/2025", "1,89", "Sim"],
+          ["02/07/2025", "Ruy de Souza filho", "04/07/2025", "1,82", "Sim"],
+          ["02/07/2025", "Aparecida Machado", "04/07/2025", "1,74", "Sim"],
+          ["02/07/2025", "Rosimeri Decezaro", "04/07/2025", "1,67", "Sim"],
+          ["02/07/2025", "Marilia De Dirceu Moresco", "04/07/2025", "1,60", "Sim"],
+          ["02/07/2025", "Regina Fragozo", "04/07/2025", "1,60", "Sim"],
+          ["02/07/2025", "JoseGetulio Martins", "04/07/2025", "2,03", "Sim"],
+          ["02/07/2025", "Tania Cristina Zanolini Parussulo", "04/07/2025", "2,01", "Sim"],
+          ["02/07/2025", "Vanda Maria Barbieri Freitas", "04/07/2025", "1,99", "Sim"],
+          ["02/07/2025", "Giuseppe Di Marco", "03/07/2025", "1,00", "Sim"],
+          ["02/07/2025", "Bernardete de lourdes Silva", "04/07/2025", "2,07", "Sim"]
+        ],
+        graficoPedidos: {
+          labels: ['24/06', '25/06', '26/06', '27/06', '28/06', '29/06', '30/06', '01/07', '02/07', '03/07'],
+          data: [16, 16, 35, 22, 21, 14, 32, 21, 18, 35]
+        },
+        graficoProblemas: {
+          labels: ['24/06', '25/06', '26/06', '27/06', '28/06', '29/06', '30/06', '01/07', '02/07', '03/07'],
+          data: [0, 0, 0, 4.55, 0, 14.29, 0, 14.29, 0, 22.86]
+        },
+        tempoMedioPorRegiao: {
+          labels: ["Norte", "Nordeste", "Centro-Oeste", "Sudeste", "Sul"],
+          corridos: [29.29, 19.73, 17.92, 13.67, 15.58],
+          uteis: [20.67, 14.02, 12.54, 9.72, 11.30]
+        }
       },
-      options: { responsive: true, scales: { y: { beginAtZero: true } } }
-    });
-
-    // Gráfico Pedidos Travados na Alfândega (%)
-    const ctxProblemas = document.getElementById('graficoProblemas').getContext('2d');
-    new Chart(ctxProblemas, {
-      type: 'line',
-      data: {
-        labels: ['24/06', '25/06', '26/06', '27/06', '28/06', '29/06', '30/06', '01/07', '02/07', '03/07'],
-        datasets: [{
-          label: '% Alfândega',
-          data: [0, 0, 0, 4.55, 0, 14.29, 0, 14.29, 0, 22.86],
-          fill: false,
-          borderColor: 'rgba(220,20,60, 0.8)',
-          tension: 0.25
-        }]
-      },
-      options: { responsive: true, scales: { y: { beginAtZero: true, max: 25 } } }
-    });
-
-    // Gráfico Drilldown Média Dias Úteis por Região e Estados
-    const ctxDrilldown = document.getElementById('graficoDrilldown').getContext('2d');
-    let graficoAtual;
-
-    // Dados regiões (média dias úteis)
-    const dadosRegioes = {
-      labels: ["Norte", "Nordeste", "Centro-Oeste", "Sudeste", "Sul"],
-      data: [20.67, 14.02, 12.54, 9.72, 11.3]
-    };
-
-    // Dados estados por região (média dias úteis)
-    const dadosPorEstado = {
-      "Norte": {
-        labels: ["Acre", "Amapá", "Amazonas", "Pará", "Rondônia", "Roraima", "Tocantins"],
-        data: [16, 16, 19.67, 22.93, 15, 0, 0]
-      },
-      "Nordeste": {
-        labels: ["Alagoas", "Bahia", "Ceará", "Maranhão", "Paraíba", "Pernambuco", "Piauí", "Rio Grande do Norte", "Sergipe"],
-        data: [14.5, 14, 15.55, 14.8, 16, 11.71, 15.67, 13, 0]
-      },
-      "Centro-Oeste": {
-        labels: ["Distrito Federal", "Goiás", "Mato Grosso", "Mato Grosso do Sul"],
-        data: [9, 16, 15.5, 14.2]
-      },
-      "Sudeste": {
-        labels: ["Espírito Santo", "Minas Gerais", "Rio de Janeiro", "São Paulo"],
-        data: [12.38, 10.72, 9.78, 9.52]
-      },
-      "Sul": {
-        labels: ["Paraná", "Rio Grande do Sul", "Santa Catarina"],
-        data: [10.8, 11.51, 11.78]
+      2: {
+        tempoEnvio: "1,38 dias",
+        totalPedidos: 70,
+        pedidosProblema: 50,
+        entregasPrazo: "87,70%",
+        taxaReenvios: "60%",
+        pedidos: [
+          ["07/07/2025","Yara Jurza","09/07/2025","2,34","Sim"],
+          ["07/07/2025","Andrea zagetti","09/07/2025","2,34","Sim"],
+          ["07/07/2025","JOSE MILDO PEREIRA DA SILVA","09/07/2025","2,34","Sim"],
+          ["07/07/2025","Marcelo kichalowski","09/07/2025","2,34","Sim"],
+          ["07/07/2025","Nilda Rocha","09/07/2025","2,34","Sim"],
+          ["07/07/2025","Evanildo Carvalho","09/07/2025","2,34","Sim"],
+          ["07/07/2025","Evanildo Carvalho","09/07/2025","2,34","Sim"],
+          ["07/07/2025","Maicon Gonzaga","09/07/2025","2,34","Sim"],
+          ["07/07/2025","Maria moraes","09/07/2025","2,34","Sim"],
+          ["07/07/2025","Lilian Maria Resmini Castro","09/07/2025","2,34","Sim"],
+          ["07/07/2025","Cristiana Ferreira Freitas","09/07/2025","2,34","Sim"],
+          ["07/07/2025","vanja rogeria silva dos rolao","09/07/2025","2,34","Sim"],
+          ["07/07/2025","Alice Cristina Barroca Medeiros","09/07/2025","2,34","Sim"],
+          ["07/07/2025","Josemar Mariano de borba","09/07/2025","2,34","Sim"],
+          ["07/07/2025","MARIA STRZALKOWSKI","10/07/2025","3,36","Não"],
+          ["07/07/2025","PAULO ROBERTO COELHO BRANDAO","09/07/2025","2,34","Sim"],
+          ["07/07/2025","PAULO ROBERTO COELHO BRANDAO","09/07/2025","2,34","Sim"],
+          ["07/07/2025","Heloisa Maria de Oliveira Reis","09/07/2025","2,34","Sim"],
+          ["07/07/2025","Rosangela da Silva","09/07/2025","2,34","Sim"],
+          ["07/07/2025","Sandra Aparecida Silva","09/07/2025","2,34","Sim"],
+          ["07/07/2025","Deise Cristina Rangel","09/07/2025","2,34","Sim"],
+          ["11/07/2025 07:30:06","Cassio Almeida","11/07/2025","0,00","Sim"],
+          ["11/07/2025 07:30:06","Antonio Jose Ferreira","11/07/2025","0,00","Sim"],
+          ["11/07/2025 07:30:06","Antonio Jose Ferreira","11/07/2025","0,00","Sim"],
+          ["11/07/2025 07:30:06","Antonio Jose Ferreira","11/07/2025","0,00","Sim"],
+          ["11/07/2025 07:30:06","Antonio Jose Ferreira","11/07/2025","0,00","Sim"],
+          ["11/07/2025 07:30:06","Antonio Jose Ferreira","11/07/2025","0,00","Sim"],
+          ["11/07/2025 07:30:06","Antonio Jose Ferreira","11/07/2025","0,00","Sim"],
+          ["11/07/2025 07:30:06","Antonio Jose Ferreira","11/07/2025","0,00","Sim"],
+          ["11/07/2025 07:30:06","Antonio Jose Ferreira","11/07/2025","0,00","Sim"],
+          ["11/07/2025 07:30:06","Antonio Jose Ferreira","11/07/2025","0,00","Sim"],
+          ["11/07/2025 07:30:06","Antonio Jose Ferreira","11/07/2025","0,00","Sim"],
+          ["11/07/2025 07:30:06","Antonio Jose Ferreira","11/07/2025","0,00","Sim"],
+          ["11/07/2025 07:30:06","Antonio Jose Ferreira","11/07/2025","0,00","Sim"],
+          ["11/07/2025 07:30:06","Antonio Jose Ferreira","11/07/2025","0,00","Sim"],
+          ["11/07/2025 07:30:06","Antonio Jose Ferreira","11/07/2025","0,00","Sim"],
+          ["11/07/2025 07:30:06","Antonio Jose Ferreira","11/07/2025","0,00","Sim"],
+          ["11/07/2025 07:30:06","Antonio Jose Ferreira","11/07/2025","0,00","Sim"],
+          ["11/07/2025 07:30:06","Antonio Jose Ferreira","11/07/2025","0,00","Sim"],
+          ["11/07/2025 07:30:06","Antonio Jose Ferreira","11/07/2025","0,00","Sim"],
+          ["11/07/2025 07:30:06","Antonio Jose Ferreira","11/07/2025","0,00","Sim"]
+        ],
+        graficoPedidos: {
+          labels: ['05/07', '06/07', '07/07', '08/07', '09/07', '10/07', '11/07'],
+          data: [30, 10, 40, 25, 35, 45, 35]
+        },
+        graficoProblemas: {
+          labels: ['05/07', '06/07', '07/07', '08/07', '09/07', '10/07', '11/07'],
+          data: [20.69, 66.67, 60.00, 250.00, 111.11, 12.5, 5.88]
+        },
+        tempoMedioPorRegiao: {
+          labels: ["Norte", "Nordeste", "Centro-Oeste", "Sudeste", "Sul"],
+          corridos: [30.5, 18.2, 14.9, 12.1, 15.3],
+          uteis: [21.2, 13.0, 11.3, 9.8, 11.7]
+        }
       }
     };
 
-    function criaGraficoRegioes() {
-      if (graficoAtual) graficoAtual.destroy();
+    const tempoMedioPorEstado = {
+      "Acre": {corridos: 27.1, uteis: 20.1},
+      "Alagoas": {corridos: 19.5, uteis: 14.1},
+      "Amapá": {corridos: 23.4, uteis: 17.0},
+      "Amazonas": {corridos: 33.2, uteis: 22.5},
+      "Bahia": {corridos: 20.3, uteis: 14.4},
+      "Ceará": {corridos: 21.7, uteis: 15.1},
+      "Distrito Federal": {corridos: 17.4, uteis: 12.2},
+      "Espírito Santo": {corridos: 15.2, uteis: 10.6},
+      "Goiás": {corridos: 18.9, uteis: 14.3},
+      "Maranhão": {corridos: 19.6, uteis: 14.4},
+      "Mato Grosso": {corridos: 20.3, uteis: 14.4},
+      "Mato Grosso do Sul": {corridos: 18.5, uteis: 13.7},
+      "Minas Gerais": {corridos: 14.6, uteis: 10.3},
+      "Pará": {corridos: 23.7, uteis: 17.3},
+      "Paraíba": {corridos: 19.5, uteis: 14.3},
+      "Paraná": {corridos: 16.4, uteis: 11.9},
+      "Pernambuco": {corridos: 20.3, uteis: 14.8},
+      "Piauí": {corridos: 19.7, uteis: 14.7},
+      "Rio de Janeiro": {corridos: 14.2, uteis: 9.7},
+      "Rio Grande do Norte": {corridos: 18.9, uteis: 13.7},
+      "Rio Grande do Sul": {corridos: 14.3, uteis: 10.3},
+      "Rondônia": {corridos: 28.3, uteis: 20.4},
+      "Roraima": {corridos: 24.9, uteis: 18.3},
+      "Santa Catarina": {corridos: 15.3, uteis: 10.7},
+      "São Paulo": {corridos: 13.4, uteis: 9.5},
+      "Sergipe": {corridos: 18.7, uteis: 13.6},
+      "Tocantins": {corridos: 23.0, uteis: 17.0}
+    };
 
-      graficoAtual = new Chart(ctxDrilldown, {
+    // Função para atualizar a tabela de pedidos
+    function atualizarTabelaPedidos(semana) {
+      const tbody = document.querySelector('#tabelaPedidos tbody');
+      tbody.innerHTML = '';
+      dadosSemanas[semana].pedidos.forEach(pedido => {
+        const tr = document.createElement('tr');
+        pedido.forEach(dado => {
+          const td = document.createElement('td');
+          td.textContent = dado;
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Função para atualizar os KPIs
+    function atualizarKPIs(semana) {
+      document.getElementById('tempoEnvio').textContent = dadosSemanas[semana].tempoEnvio;
+      document.getElementById('totalPedidos').textContent = dadosSemanas[semana].totalPedidos;
+      document.getElementById('pedidosProblema').textContent = dadosSemanas[semana].pedidosProblema;
+      document.getElementById('entregasPrazo').textContent = dadosSemanas[semana].entregasPrazo;
+      document.getElementById('taxaReenvios').textContent = dadosSemanas[semana].taxaReenvios;
+    }
+
+    // Função para atualizar tabela de regiões
+    function atualizarTabelaRegioes(semana) {
+      const tbody = document.querySelector('#tabelaRegiao tbody');
+      tbody.innerHTML = '';
+      const labels = dadosSemanas[semana].tempoMedioPorRegiao.labels;
+      const corridos = dadosSemanas[semana].tempoMedioPorRegiao.corridos;
+      const uteis = dadosSemanas[semana].tempoMedioPorRegiao.uteis;
+
+      for(let i=0; i<labels.length; i++) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${labels[i]}</td><td>${corridos[i].toFixed(2)}</td><td>${uteis[i].toFixed(2)}</td>`;
+        tbody.appendChild(tr);
+      }
+    }
+
+    // Gráficos (usando Chart.js)
+    let graficoPedidos, graficoProblemas, graficoDrilldown;
+    const ctxPedidos = document.getElementById('graficoPedidos').getContext('2d');
+    const ctxProblemas = document.getElementById('graficoProblemas').getContext('2d');
+    const ctxDrilldown = document.getElementById('graficoDrilldown').getContext('2d');
+
+    function criarGraficoPedidos(semana) {
+      if(graficoPedidos) graficoPedidos.destroy();
+      const data = dadosSemanas[semana].graficoPedidos;
+      graficoPedidos = new Chart(ctxPedidos, {
         type: 'bar',
         data: {
-          labels: dadosRegioes.labels,
+          labels: data.labels,
           datasets: [{
-            label: 'Média Dias Úteis',
-            data: dadosRegioes.data,
-            backgroundColor: 'rgba(75, 123, 236, 0.7)',
-            borderColor: 'rgba(75, 123, 236, 1)',
-            borderWidth: 1
+            label: 'Pedidos',
+            data: data.data,
+            backgroundColor: '#4b47a3'
           }]
         },
         options: {
-          onClick: (evt, itens) => {
-            if (itens.length) {
-              const index = itens[0].index;
-              const regiao = dadosRegioes.labels[index];
-              mostraEstados(regiao);
-            }
-          },
           responsive: true,
-          scales: {
-            y: {
-              beginAtZero: true,
-              title: { display: true, text: 'Dias Úteis' }
-            },
-            x: {
-              title: { display: true, text: 'Região' }
-            }
-          },
           plugins: {
-            legend: { display: true },
-            tooltip: { enabled: true }
+            legend: {display: false}
+          },
+          scales: {
+            y: {beginAtZero:true}
           }
         }
       });
-
-      voltarBtn.style.display = "none";
     }
 
-    function mostraEstados(regiao) {
-      if (graficoAtual) graficoAtual.destroy();
-
-      graficoAtual = new Chart(ctxDrilldown, {
-        type: 'bar',
+    function criarGraficoProblemas(semana) {
+      if(graficoProblemas) graficoProblemas.destroy();
+      const data = dadosSemanas[semana].graficoProblemas;
+      graficoProblemas = new Chart(ctxProblemas, {
+        type: 'line',
         data: {
-          labels: dadosPorEstado[regiao].labels,
+          labels: data.labels,
           datasets: [{
-            label: `Média Dias Úteis - ${regiao}`,
-            data: dadosPorEstado[regiao].data,
-            backgroundColor: 'rgba(220, 20, 60, 0.7)',
-            borderColor: 'rgba(220, 20, 60, 1)',
-            borderWidth: 1
+            label: 'Pedidos Travados (%)',
+            data: data.data,
+            fill: false,
+            borderColor: '#e63946',
+            tension: 0.2
           }]
         },
         options: {
           responsive: true,
+          plugins: {
+            legend: {display: true}
+          },
           scales: {
             y: {
-              beginAtZero: true,
-              title: { display: true, text: 'Dias Úteis' }
-            },
-            x: {
-              title: { display: true, text: 'Estado' }
+              beginAtZero:true,
+              max: 300
             }
-          },
-          plugins: {
-            legend: { display: true },
-            tooltip: { enabled: true }
           }
         }
       });
-
-      voltarBtn.style.display = "inline-block";
     }
 
+    // Dados para o gráfico drilldown de regiões e estados
+    const regioes = ["Norte", "Nordeste", "Centro-Oeste", "Sudeste", "Sul"];
+
+    const estadosPorRegiao = {
+      "Norte": ["Acre","Amapá","Amazonas","Pará","Rondônia","Roraima","Tocantins"],
+      "Nordeste": ["Alagoas","Bahia","Ceará","Maranhão","Paraíba","Pernambuco","Piauí","Rio Grande do Norte","Sergipe"],
+      "Centro-Oeste": ["Distrito Federal","Goiás","Mato Grosso","Mato Grosso do Sul"],
+      "Sudeste": ["Espírito Santo","Minas Gerais","Rio de Janeiro","São Paulo"],
+      "Sul": ["Paraná","Rio Grande do Sul","Santa Catarina"]
+    };
+
+    // Função para criar gráfico drilldown (tempo médio por região e estados)
+    function criarGraficoDrilldown(semana) {
+      if(graficoDrilldown) graficoDrilldown.destroy();
+
+      const regiaoLabels = dadosSemanas[semana].tempoMedioPorRegiao.labels;
+      const regiaoValues = dadosSemanas[semana].tempoMedioPorRegiao.corridos;
+
+      graficoDrilldown = new Chart(ctxDrilldown, {
+        type: 'bar',
+        data: {
+          labels: regiaoLabels,
+          datasets: [{
+            label: 'Média Dias Corridos',
+            data: regiaoValues,
+            backgroundColor: '#4b47a3',
+            borderRadius: 8
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {display: false},
+            tooltip: {enabled: true}
+          },
+          scales: {
+            y: {beginAtZero: true}
+          },
+          onClick(evt, item) {
+            if(item.length > 0) {
+              const index = item[0].index;
+              const regiao = regiaoLabels[index];
+              mostrarDrilldownEstados(regiao, semana);
+            }
+          }
+        }
+      });
+    }
+
+    // Botão voltar para gráfico de regiões
     const voltarBtn = document.getElementById('voltarBtn');
-    voltarBtn.addEventListener('click', criaGraficoRegioes);
+    voltarBtn.addEventListener('click', () => {
+      criarGraficoDrilldown(semanaSelecionada);
+      voltarBtn.style.display = 'none';
+    });
 
-    // Inicializa com o gráfico geral
-    criaGraficoRegioes();
+    // Função para mostrar estados de uma região no gráfico
+    function mostrarDrilldownEstados(regiao, semana) {
+      if(graficoDrilldown) graficoDrilldown.destroy();
 
+      const estados = estadosPorRegiao[regiao];
+      const dadosEstados = estados.map(estado => {
+        const val = tempoMedioPorEstado[estado];
+        return val ? val.corridos : 0;
+      });
+
+      graficoDrilldown = new Chart(ctxDrilldown, {
+        type: 'bar',
+        data: {
+          labels: estados,
+          datasets: [{
+            label: `Média Dias Corridos - ${regiao}`,
+            data: dadosEstados,
+            backgroundColor: '#277da1',
+            borderRadius: 8
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {display: false},
+            tooltip: {enabled: true}
+          },
+          scales: {
+            y: {beginAtZero:true}
+          }
+        }
+      });
+
+      voltarBtn.style.display = 'inline-block';
+    }
+
+    // Inicialização
+    let semanaSelecionada = 2;
+
+    function atualizarDashboard(semana) {
+      atualizarKPIs(semana);
+      atualizarTabelaPedidos(semana);
+      atualizarTabelaRegioes(semana);
+      criarGraficoPedidos(semana);
+      criarGraficoProblemas(semana);
+      criarGraficoDrilldown(semana);
+      voltarBtn.style.display = 'none';
+    }
+
+    document.getElementById('semanaSelect').addEventListener('change', (e) => {
+      semanaSelecionada = parseInt(e.target.value);
+      atualizarDashboard(semanaSelecionada);
+    });
+
+    // Carregar dashboard padrão
+    atualizarDashboard(semanaSelecionada);
   </script>
 </body>
 </html>
